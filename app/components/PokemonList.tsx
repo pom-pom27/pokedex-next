@@ -1,5 +1,5 @@
 import { BASE_URL } from "../constant";
-import { IAllPokemon, IAllPokemonDIO, IPokemon } from "../types";
+import { IAllPokemonDIO, IPokemon, IPokemonListDb } from "../types";
 import PokemonCard from "./PokemonCard";
 
 interface IPokemonList {}
@@ -19,7 +19,7 @@ const fetchListPokemon = async () => {
   }
 };
 
-const fetchAllPokemonDetail = async (allPokemon: IAllPokemon[]) => {
+const fetchAllPokemonDetail = async (allPokemon: IPokemonListDb[]) => {
   if (allPokemon.length === 0) return;
   const allPokemonDetail: IPokemon[] = [];
 

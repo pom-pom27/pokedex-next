@@ -5,10 +5,10 @@ import SearchInput from "./components/SearchInput";
 export default function Home() {
   return (
     <div className="flex flex-col gap-6 items-center">
-      <div className="w-3/5">
+      <div className="w-4/5 flex gap-3 flex-col">
         <SearchInput />
+        <Filter />
       </div>
-      <Filter />
       <PokemonList />
     </div>
   );

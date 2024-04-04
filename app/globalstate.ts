@@ -1,19 +1,51 @@
 import { create } from "zustand";
 import { BASE_URL } from "./constant";
-import { IAllPokemon, IAllPokemonDIO, IPokemon, IPokemonType } from "./types";
+import {
+  IAllPokemonDIO,
+  IPokemon,
+  IPokemonListDb,
+  IPokemonType,
+} from "./types";
 
 type Store = {
-  allPokemonName: IAllPokemon[] | null;
+  pokemonListDb: IPokemonListDb[];
   pokemonList: IPokemon[];
-  currentPokemon: IPokemon | null;
   fetchAllPokemonName: () => void;
   setFilter: (filter: string) => void;
   error: string | null;
+  fetchPokemonList: () => void;
+  setCurrentPokemon: (pokemonName: string) => void;
+  currentPokemon: string | null;
 };
 
 export const usePokedexStore = create<Store>()((set) => ({
-  allPokemonName: null,
+  pokemonListDb: [],
+  setCurrentPokemon: (pokemonName) =>
+    set(() => ({ currentPokemon: pokemonName })),
   currentPokemon: null,
+  fetchPokemonList: async () => {
+    try {
+      const allPokemonApi = await fetch(
+        `${BASE_URL}/pokemon/?limit=20&offset=20`
+      );
+      const allPokemon = (await allPokemonApi.json()) as IAllPokemonDIO;
+
+      if (allPokemon.results?.length === 0) return;
+
+      const listPokemon: IPokemon[] = [];
+
+      for (const pokemon of allPokemon.results!) {
+        const response = await fetch(pokemon.url!);
+        const pokemonDetail = (await response.json()) as IPokemon;
+
+        listPokemon.push(pokemonDetail);
+      }
+
+      set(() => ({ pokemonList: listPokemon }));
+    } catch (error) {
+      set(() => ({ error: "Error while fetching data" }));
+    }
+  },
   pokemonList: [],
   filterQuery: null,
   setFilter: async (filterNumber) => {
@@ -22,12 +54,6 @@ export const usePokedexStore = create<Store>()((set) => ({
     try {
       const allPokemonApi = await fetch(`${BASE_URL}/type/${filterNumber}/`);
       const allPokemon = (await allPokemonApi.json()).pokemon as IPokemonType[];
-
-      // const convertedPokemons: IPokemon[] = allPokemon.map((pokemon) => {
-      //   return {};
-      // });
-
-      // set(() => ({ allPokemonName: allPokemon }));
     } catch (error) {
       set(() => ({ error: "Error while fetching the data!" }));
     }
@@ -41,11 +67,10 @@ export const usePokedexStore = create<Store>()((set) => ({
         `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`
       );
       const allPokemon = (await allPokemonApi.json()) as IAllPokemonDIO;
-      set(() => ({ allPokemonName: allPokemon.results }));
+
+      set(() => ({ pokemonListDb: allPokemon.results! }));
     } catch (error) {
       set(() => ({ error: "Error while fetching the data!" }));
     }
   },
-  setCurrentPokemon: () =>
-    set((state) => ({ currentPokemon: state.currentPokemon })),
 }));

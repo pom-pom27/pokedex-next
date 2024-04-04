@@ -10,7 +10,7 @@ const PokemonTypeChip = ({ title, handleClick }: IPokemonTypeChip) => {
     <button
       disabled={!handleClick}
       onClick={handleClick}
-      className="border border-black px-2 rounded-lg capitalize"
+      className="border border-black px-2 rounded-lg capitalize dark:border-white"
     >
       {title}
     </button>

@@ -2,7 +2,7 @@ export interface IAllPokemonDIO {
   count: number | null;
   next: any | null;
   previous: any | null;
-  results: IAllPokemon[] | null;
+  results: IPokemonListDb[] | null;
 }
 
 export interface IPokemonType {
@@ -12,7 +12,7 @@ export interface IPokemonType {
   };
 }
 
-export interface IAllPokemon {
+export interface IPokemonListDb {
   name: string | null;
   url: string | null;
 }

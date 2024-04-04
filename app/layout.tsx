@@ -19,7 +19,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        <main className="max-w-7xl m-auto  mt-10">{children}</main>
+        <main className="max-w-5xl m-auto  mt-10">{children}</main>
       </body>
     </html>
   );

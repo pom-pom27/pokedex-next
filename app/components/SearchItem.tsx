@@ -6,6 +6,8 @@ interface ISearchItem {
 }
 
 const SearchItem = ({ pokemonName, url }: ISearchItem) => {
+  //router.refresh() is not working as intended, so i use reload().
+
   return (
     <>
       {url && (
@@ -13,7 +15,7 @@ const SearchItem = ({ pokemonName, url }: ISearchItem) => {
           className="p-2  border-b border-gray-400 capitalize cursor-pointer"
           href={url}
         >
-          {pokemonName}{" "}
+          {pokemonName}
         </Link>
       )}
       {!url && (

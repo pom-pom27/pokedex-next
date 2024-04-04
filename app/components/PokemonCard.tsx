@@ -16,7 +16,7 @@ const PokemonCard = ({
 }: IPokemonCard) => {
   return (
     <Link
-      className="flex flex-col max-w-44 h-64 w-full justify-center items-center gap-3 border border-black"
+      className="flex flex-col max-w-44 h-64 w-full justify-center items-center gap-3 border border-black rounded-lg dark:border-white"
       href={pokemonName!}
     >
       <div className="capitalize">{pokemonName}</div>

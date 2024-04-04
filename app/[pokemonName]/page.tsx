@@ -1,22 +1,39 @@
-import { FaArrowLeft } from "react-icons/fa";
-
-import Link from "next/link";
+import GoBackButton from "../components/GoBackButton";
 import PokemonDetailCard from "../components/PokemonDetailCard";
+import SearchInput from "../components/SearchInput";
+import { BASE_URL } from "../constant";
+import { IPokemon } from "../types";
 
-const Page = ({
+export const fetchPokemonDetail = async (pokemonName: string) => {
+  try {
+    const response = await fetch(`${BASE_URL}/pokemon/${pokemonName}`);
+
+    const pokemonDetail = (await response.json()) as IPokemon;
+
+    return pokemonDetail;
+  } catch (error) {
+    return null;
+  }
+};
+
+const Page = async ({
   params,
-  searchParams,
 }: {
   params: { pokemonName: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  return (
-    <div className="flex flex-col gap-10">
-      <Link className=" rounded-full bg-gray-300 w-fit p-4" href="/">
-        <FaArrowLeft className="text-gray-600 text-xl" />
-      </Link>
+  const pokemonDetail = await fetchPokemonDetail(params.pokemonName);
 
-      <PokemonDetailCard pokemonName={params.pokemonName} />
+  return (
+    <div className="flex flex-col gap-8 mb-6 mx-4 lg:mx-0">
+      <GoBackButton pokemonName={params.pokemonName} />
+
+      <div className="w-full flex m-auto ">
+        <SearchInput />
+      </div>
+      <div className="w-full flex m-auto">
+        <PokemonDetailCard pokemon={pokemonDetail!} />
+      </div>
     </div>
   );
 };

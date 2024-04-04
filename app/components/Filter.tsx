@@ -12,7 +12,11 @@ const Filter = ({}: IFilter) => {
         <PokemonTypeChip handleClick={() => {}} key="all" title="All" />
 
         {pokemonTypes.map((type) => (
-          <PokemonTypeChip handleClick={() => {}} title={type.name} />
+          <PokemonTypeChip
+            key={type.name}
+            handleClick={() => {}}
+            title={type.name}
+          />
         ))}
       </div>
     </div>
