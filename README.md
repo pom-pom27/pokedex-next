@@ -8,7 +8,7 @@ First, install the dependencies:
 npm i
 ```
 
-First, run the development server:
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -26,3 +26,16 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 npm run build
 
 ```
+
+## Features
+
+- [x] Search
+- [ ] Sort
+- [ ] Filter
+- [x] Comparison
+- [x] Use React and NextJS
+- [x] Has SSR
+- [x] Have high performance
+- [x] Load lazily
+- [ ] Using GraphQ
+- [x] Reusable Component
